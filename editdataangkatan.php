@@ -84,26 +84,26 @@ include 'config.php';
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body" id="dataangkatan">
+            <div class="modal-body" id="dataangkatan"></div>
                 <!-- Form edit data angkatan dipisah ke file view.php -->
             </div>
         </div>
     </div>
 </div>
 <script>
-                    $('.view_data').click(function(){
-                        var id_angkatan = $(this).attr('id');
-                        $.ajax({
-                            url: 'view.php',
-                            method: 'POST',
-                            data: {id_angkatan:id_angkatan},
-                            success:function(data){
-                                $('#dataangkatan').html(data)
-                                $('#editAngkatan').modal('show');
-                            }
-                        })
-                    })
-                </script>
+    $('.view_data').click(function(){
+        var id_angkatan = $(this).attr('id');
+        $.ajax({
+            url: 'view.php',
+            method: 'POST',
+            data: {id_angkatan:id_angkatan},
+            success:function(data){
+                $('#dataangkatan').html(data)
+                $('#editAngkatan').modal('show');
+            }
+        })
+    })
+</script>
 
 <!-- Fungsi PHP -->
 <?php
@@ -125,22 +125,26 @@ if(isset($_GET['id_angkatan'])) {
     $id_angkatan = $_GET['id_angkatan'];
     $exec = mysqli_query($db,"DELETE FROM angkatan WHERE id_angkatan='$id_angkatan'");
     if($exec) {
-        echo "<script>alert('data angkatan berhasil dihapus') document.location = 'editdataangkatan.php';</script>";
+        echo "<script>alert('data angkatan berhasil dihapus')
+        document.location = 'editdataangkatan.php';</script>";
     }else {
-        echo "<script>alert('data-angkatan gagal dihapus') document.location = 'editdataangkatan.php';</script>";
+        echo "<script>alert('data-angkatan gagal dihapus')
+        document.location = 'editdataangkatan.php';</script>";
     }
 }
 //proses hapus data pada table
 
-if(isset($_POST['update'])) {
+if(isset($_POST['update'])){
     $id_angkatan = $_POST['id_angkatan'];
     $nama_angkatan = htmlentities(strip_tags(strtoupper($_POST['nama_angkatan'])));
     $biaya = htmlentities(strip_tags(strtoupper($_POST['biaya'])));
     $query = "UPDATE angkatan SET nama_angkatan = '$nama_angkatan', biaya = '$biaya' WHERE id_angkatan = '$id_angkatan'";
     if($exec) {
-        echo "<script>alert('data angkatan success UPDATE')document.location = 'editdataangkatan.php'</script>";
+        echo " <script>alert('data angkatan berhasil diedit')
+        document.location = 'editdataangkatan.php'</script>; ";
     }else {
-        echo "<script>alert('data angkatan failed UPDATE')document.location = 'editdataangkatan.php'</script>";
+        echo " <script>alert('data angkatan gagal diedit')
+        document.location = 'editdataangkatan.php'</script>; ";
     }
 }
 ?>
